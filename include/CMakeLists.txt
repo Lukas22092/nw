@@ -1,1 +1,1 @@
-add_library(include STATIC test.cpp)
+add_library(include STATIC connection.hpp)
