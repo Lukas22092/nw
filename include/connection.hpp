@@ -30,7 +30,7 @@ private:
 public:
   explicit Connection(net::io_context &ctx);
 
-  auto const resolve();
+  auto const resolve_and_connect();
 };
 
 #endif /* !defined(INCLUDED_NW_CONNECTION_HPP) */
