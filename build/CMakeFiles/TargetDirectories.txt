@@ -1,3 +1,0 @@
-/home/lukas/Desktop/proj/build/CMakeFiles/my_app.dir
-/home/lukas/Desktop/proj/build/CMakeFiles/edit_cache.dir
-/home/lukas/Desktop/proj/build/CMakeFiles/rebuild_cache.dir

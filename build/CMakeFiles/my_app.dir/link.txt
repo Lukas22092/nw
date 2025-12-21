@@ -1,1 +1,0 @@
-/usr/bin/c++ CMakeFiles/my_app.dir/src/main.cpp.o CMakeFiles/my_app.dir/include/test.cpp.o -o my_app  /usr/lib/x86_64-linux-gnu/libboost_filesystem.so.1.83.0 /usr/lib/x86_64-linux-gnu/libboost_atomic.so.1.83.0 
