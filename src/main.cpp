@@ -1,9 +1,11 @@
-#include <iostream>
-#include <asio.hpp>
-int main(){
+#include "connection.hpp"
 
-  std::cout << "test\n";
 
-  
+int main()
+{
+    net::io_context ctx;
 
+    Connection connection(ctx);
+    connection.resolve_and_connect();
+    connection.send_request();
 }
