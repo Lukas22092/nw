@@ -72,9 +72,23 @@ std::vector<item_statistics> hypixel_connection::get_all_orders(boost::json::obj
     return res;
 }
 std::unordered_map<std::string, boost::json::object> hypixel_connection::get_item_recipes()
-{
+{       
+    std::ifstream input_filestream;
     for (const auto & entry : std::filesystem::directory_iterator(item_folder_path))
     {
+        std::string temp;
+
+        //use a stringbuffer here to store the whole lines in a string.
+        //after storing it in a string, we can convert it to a json object.
+        //the name of the recipe can be the first element of the map, the 
+        //recipe will be the 2nd element of the map.
+        input_filestream.open(entry.path().string()); //open the file 
+        while(getline(input_filestream, temp))
+        { 
+
+        }
+
+
         std::cout << entry << std::endl;}
 
     }

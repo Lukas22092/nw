@@ -5,7 +5,7 @@
 #include <map>
 #include <tuple>
 #include <fstream>
-
+#include <sstream>
 
 struct item_statistics {
     std::string id;
