@@ -9,6 +9,8 @@
 #include <boost/beast/http.hpp>
 #include <boost/beast/ssl.hpp>
 #include <boost/beast/version.hpp>
+#include <boost/lexical_cast.hpp>
+#include <boost/json.hpp>
 #include <iostream>
 #include <string>
 
@@ -17,6 +19,7 @@ namespace http = beast::http;
 namespace net = boost::asio;
 namespace ssl = net::ssl;
 using tcp = net::ip::tcp;
+namespace json = boost::json;
 
 class https_connection {
 protected:

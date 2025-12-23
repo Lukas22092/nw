@@ -44,47 +44,30 @@ std::string hypixel_connection::fetch_bazaar() {
    return res.body();
 }
 
-std::vector<item_statisics> hypixel_connection::get_all_orders(boost::json::object& json_obj){
+std::vector<item_statistics> hypixel_connection::get_all_orders(boost::json::object& json_obj) {
+    auto const& products = json_obj["products"].as_object();
+    std::vector<item_statistics> res;
+    res.reserve(products.size()); 
 
-        auto const& products = json_obj["products"].as_object();
-        std::vector<item_statisics> res = {};
+    for (auto const& field : products) {
+        auto const& product_data = field.value().as_object();
+        item_statistics stats;
+        stats.id = field.key();
 
-        for (auto const& field : products) {
-            auto const& product_data = field.value().as_object();
-
-            auto const& buy_summary = product_data.at("buy_summary").as_array();
-            auto const& sell_summary = product_data.at("sell_summary").as_array();
-
-            std::cout << "Product: " << field.key() << "\n";
-
-            for (auto const& order_val : sell_summary) {
-                auto const& order = order_val.as_object();
-                double sell_price = order.at("pricePerUnit").as_double();
-                int64_t sell_amount = order.at("amount").as_int64();
-            }
-
-            for (auto const& order_val : buy_summary) {
-                auto const& order = order_val.as_object();
-                double buy_price = order.at("pricePerUnit").as_double();
-                int64_t buy_amount = order.at("amount").as_int64();
-            }
-            item_statisics{/*.....*/};
-
-
+        auto const& sell_sum = product_data.at("sell_summary").as_array();
+        if (!sell_sum.empty()) {
+            stats.best_sell_price = sell_sum.at(0).as_object().at("pricePerUnit").to_number<double>();
+        } else {
+            stats.best_sell_price = 0.0;
+        }
+        auto const& buy_sum = product_data.at("buy_summary").as_array();
+        if (!buy_sum.empty()) {
+            stats.best_buy_price = buy_sum.at(0).as_object().at("pricePerUnit").to_number<double>();
+        } else {
+            stats.best_buy_price = 0.0;
         }
 
-
-
-
-};
-
-
-
-
-
-
-
-
-    const std::vector<item_statisics> hypixel_connection::get_all_orders() const{
-        return all_orders;
+        res.push_back(stats);
     }
+    return res;
+}

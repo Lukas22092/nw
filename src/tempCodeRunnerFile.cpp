@@ -11,9 +11,7 @@ int main() {
         auto res = json::parse(bazaar).as_object();
         
         auto vec = conn.get_all_orders(res);
-        
-        for(const auto& n : vec){
-            std::cout << n.id << ": " << n.best_buy_price << "  " << n.best_sell_price  <<  "  " << n.best_buy_price/n.best_sell_price<< "\n";
-        }
+
+    
     }
     
