@@ -8,6 +8,7 @@ find_package(OpenSSL REQUIRED)
 add_executable(my_app
     src/main.cpp
     src/connection.cpp
+    src/hypixel_connection.cpp
 )
 
 target_include_directories(my_app PRIVATE include)

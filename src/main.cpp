@@ -1,11 +1,10 @@
-#include "connection.hpp"
+#include "hypixel_connection.hpp"
 
 
-int main()
-{
-    net::io_context ctx;
-
-    Connection connection(ctx);
-    connection.resolve_and_connect();
-    connection.send_request();
-}
+int main() {
+        net::io_context ioc;
+        hypixel_connection conn(ioc);
+        conn.connect();
+        conn.fetch_auctions();
+        conn.fetch_bazaar();
+    }

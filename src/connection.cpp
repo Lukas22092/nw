@@ -1,46 +1,21 @@
 #include "connection.hpp"
 
-Connection::Connection(boost::asio::io_context &ioc)
-    : ctx(ioc), resolver(ioc), stream(ioc) {}
-
-
-void Connection::resolve_and_connect() {
-    try 
+//sets up the connection for a arbatary https website.
+https_connection::https_connection(net::io_context& ioc)
+        : ctx_(ssl::context::tlsv12_client),
+          resolver_(ioc),
+          stream_(ioc, ctx_) 
     {
-        const auto result = resolver.resolve(params.host, params.service);
-        stream.connect(result);
-    } 
-    catch (const boost::system::system_error &e) {
-        if (e.code() == boost::asio::error::host_not_found) {
-            throw std::runtime_error("Custom Error: Host not found");
-        }
-        std::cerr << "Failure: " << e.what() << "\n";
-        throw; // This rethrows the current exception "e"
+        ctx_.set_default_verify_paths();
+        ctx_.set_verify_mode(ssl::verify_peer);
     }
-}
-void Connection::send_request(){        
-    
-    try{
-        http::request<http::string_body> req{http::verb::get, params.target, 11}; //verison 11 is standard
-        req.set(http::field::host, params.host);
-        req.set(http::field::user_agent, BOOST_BEAST_VERSION_STRING);
-        http::write(stream, req);
-        beast::flat_buffer buffer; //used for reading
-        http::read(stream, buffer, res);
-        std::cout << res << std::endl;
-        beast::error_code ec;
-        stream.socket().shutdown(tcp::socket::shutdown_both, ec);
 
-       if(ec && ec != beast::errc::not_connected)
-            throw beast::system_error{ec};
-
-
-    }
-    catch(boost::system::system_error  &e){
-        if(e.code() == error::header_field_value_too_large){
-            throw std::runtime_error("too much data");
-        }
-    }
+//this destroctor can trow! i learned that destructors should never throw?
+https_connection::~https_connection(){
+    //Shutdown
+    beast::error_code ec;
+    stream_.shutdown(ec);
+    if(ec == net::error::eof || ec == ssl::error::stream_truncated) ec = {};
+    if(ec) throw beast::system_error{ec};
 
 }
-
