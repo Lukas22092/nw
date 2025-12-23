@@ -1,7 +1,6 @@
 #include "hypixel_connection.hpp"
 
 
-#include <boost/json/src.hpp>
 
 
 namespace json = boost::json;
