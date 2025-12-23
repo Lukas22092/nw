@@ -29,7 +29,7 @@ void hypixel_connection::fetch_auctions() {
     std::cout << "Auctions received!" << std::endl;
 }
 
-void hypixel_connection::fetch_bazaar() {
+std::string hypixel_connection::fetch_bazaar() {
     // using the open stream to send another request
     http::request<http::string_body> req{http::verb::get, "/v2/skyblock/bazaar", 11};
     req.set(http::field::host, host);
@@ -38,8 +38,8 @@ void hypixel_connection::fetch_bazaar() {
     http::write(stream_, req);
 
     beast::flat_buffer buffer;
-    http::response<http::dynamic_body> res;
+    http::response<http::string_body> res;  
     http::read(stream_, buffer, res);
 
-    std::cout << "Bazaar received!" << std::endl;
+   return res.body();
 }

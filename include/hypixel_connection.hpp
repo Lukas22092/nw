@@ -2,7 +2,7 @@
 #define HYPIXEL_CONNECTION_HPP
 
 #include "connection.hpp"
-
+#include <boost/lexical_cast.hpp>
 class hypixel_connection : public https_connection{
     private:
     const std::string host = "api.hypixel.net";
@@ -15,7 +15,7 @@ class hypixel_connection : public https_connection{
     
     void connect();        
     void fetch_auctions();   
-    void fetch_bazaar(); 
+    std::string fetch_bazaar(); 
     
 };
 

@@ -8,6 +8,7 @@ find_package(OpenSSL REQUIRED)
 add_executable(my_app
     src/main.cpp
     src/connection.cpp
+    src/json_reader.cpp
     src/hypixel_connection.cpp
 )
 
