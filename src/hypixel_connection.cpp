@@ -71,3 +71,13 @@ std::vector<item_statistics> hypixel_connection::get_all_orders(boost::json::obj
     }
     return res;
 }
+std::unordered_map<std::string, boost::json::object> hypixel_connection::get_item_recipes()
+{
+    for (const auto & entry : std::filesystem::directory_iterator(item_folder_path))
+    {
+        std::cout << entry << std::endl;}
+
+    }
+    
+
+

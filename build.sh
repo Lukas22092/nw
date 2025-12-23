@@ -9,4 +9,4 @@ cd build
 # 3. Run CMake
 cmake ..
 
-make -j$(nproc)
+make -j$(nproc) 

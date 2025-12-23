@@ -1,11 +1,12 @@
 cmake_minimum_required(VERSION 3.10)
 project(proj)
-
+set (CMAKE_CXX_STANDARD 20)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
+find_package(Boost REQUIRED COMPONENTS filesystem json)
 find_package(Boost REQUIRED COMPONENTS filesystem)
 find_package(OpenSSL REQUIRED)
-find_package(Boost REQUIRED COMPONENTS json)
+
 add_executable(my_app
     src/main.cpp
     src/connection.cpp
@@ -16,4 +17,4 @@ add_executable(my_app
 target_include_directories(my_app PRIVATE include)
 
 
-target_link_libraries(my_app PRIVATE  PRIVATE OpenSSL::SSL OpenSSL::Crypto Boost::filesystem Boost::json)
+target_link_libraries(my_app PRIVATE  OpenSSL::SSL OpenSSL::Crypto Boost::json Boost::filesystem)
