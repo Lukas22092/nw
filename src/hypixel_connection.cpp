@@ -1,3 +1,4 @@
+
 #include "hypixel_connection.hpp"
 
 void hypixel_connection::connect() {

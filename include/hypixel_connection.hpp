@@ -1,3 +1,6 @@
+#ifndef HYPIXEL_CONNECTION_HPP
+#define HYPIXEL_CONNECTION_HPP
+
 #include "connection.hpp"
 
 class hypixel_connection : public https_connection{
@@ -15,3 +18,5 @@ class hypixel_connection : public https_connection{
     void fetch_bazaar(); 
     
 };
+
+#endif
